@@ -1,0 +1,30 @@
+{% extends 'flatpages/default.html' %}
+
+{% block title %}
+Post
+{% endblock title %}
+
+{% block content %}
+<h1>Объявление</h1>
+<hr>
+
+<h3>{{ post.title }}</h3>
+
+{% if post.media %}
+<p><img class="img-article-left" src="{{post.media.url}}"></p>
+{% endif %}
+
+<p>{{ post.text }}</p>
+<ul>
+    <li type="none" >Дата публикации:  {{ post.time_create|date:'M d Y' }}</li>
+    <li type="none" >Автор:  {{ post.author }}</li>
+    <li type="none" >Категория:  {{ post.cat.name|safe }}</li>
+</ul>
+{% endblock content %}
+
+
+
+
+
+
+

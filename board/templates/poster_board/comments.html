@@ -1,0 +1,62 @@
+{% extends 'flatpages/default.html' %} 
+ 
+{% block title %}
+Comments
+{% endblock title %}
+ 
+{% block content %}
+
+    <h1>Kомментарии</h1>
+    <hr>
+    {{ post.title }}
+    <form action="" method="get">
+        {{ filterset.form.as_p}}
+        <input type="submit" value="Найти"/>
+    </form>
+    <hr>
+    {% if comments %}
+        <table>
+            <tr>
+                <td>Дата</td>
+                <td>Автор</td>
+                <td>Текст</td>
+                <td>Действия</td>
+            </tr>
+            {% for comment in comments %}
+            <tr>
+                <td>{{ comment.time_create|date:'M d Y' }}</td>
+                <td>{{ comment.author }}</td>
+                <td>{{ comment.text }}</td>
+                <td>
+                {% if comment.status == False %}
+                <td><a class="btn btn-primary btn-sm" href="{% url 'comment_delete' comment.id %}">Удалить</a></td>
+                <td><a class="btn btn-primary btn-sm" href="{% url 'comment_status' comment.id %}">Принять</a></td>
+                {% else %}
+                <td>Отклик принят</td>
+                {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <h2>Комментарии отсутствуют!</h2>
+    {% endif %}
+<!--    {% if page_obj.has_previous %}-->
+<!--       <a href="?page=1">1</a>-->
+<!--       {% if page_obj.previous_page_number != 1 %}-->
+<!--           ...-->
+<!--           <a href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>-->
+<!--       {% endif %}-->
+<!--   {% endif %}-->
+
+<!--   {{ page_obj.number }}-->
+
+<!--   {% if page_obj.has_next %}-->
+<!--       <a href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a>-->
+<!--       {% if paginator.num_pages != page_obj.next_page_number %}-->
+<!--           ...-->
+<!--           <a href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>-->
+<!--       {% endif %}-->
+<!--   {% endif %}-->
+
+{% endblock content %}
